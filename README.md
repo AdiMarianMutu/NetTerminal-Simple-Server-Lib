@@ -5,7 +5,7 @@ I wrote this simple library just for *fun* and as a *personal challenge* while I
 ## [General Info]
 First of all I want to let you know that the server created with this library is able to support **only one client per time**. *(I plan to implement multi-client connection soon)*
 
-The library does all of the underlaying work *asynchronously* using **async**/**await**.
+The library does all of the underlying work *asynchronously* using **async**/**await**.
 
 ## [Fast Example]
 
