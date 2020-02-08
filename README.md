@@ -64,7 +64,7 @@ Connected, AuthNoPassword, AuthPassword, AuthWrongPassword, AuthTimeout*
 - [**string**] **IP** : *Returns the client IP*
 - [**bool**] **IsAuth** : *Returns true if the client is authenticated*
 - [**int**] **Port** : *Returns the client port*
-- [**StatusFlag**] **Port** : *Retrieves the actual client status*
+- [**StatusFlag**] **Status** : *Retrieves the actual client status*
 
 Methods:
 
