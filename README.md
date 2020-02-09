@@ -7,7 +7,7 @@ First of all I want to let you know that the server created with this library is
 
 The library does all of the underlying work *asynchronously* using **async**/**await**.
 
-## [Fast Example]
+## [Quick Example]
 
 In order to setup the server we must use 3 classes
 
