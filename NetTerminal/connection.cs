@@ -29,7 +29,7 @@ namespace NetTerminal {
         /// </summary>
         public enum StatusFlag {
             NotActive = 0,
-            Active = 1,
+            Active    = 1,
         }
         /// <summary>
         /// Retrieves the server connection status
@@ -39,11 +39,11 @@ namespace NetTerminal {
 
         private enum ClientStatusFlag {
             UnknownOrDisconnected = 0,
-            Connected = 1,
-            AuthNoPassword = 2,
-            AuthPassword = 3,
-            AuthWrongPassword = 4,
-            AuthTimeout = 5
+            Connected             = 1,
+            AuthNoPassword        = 2,
+            AuthPassword          = 3,
+            AuthWrongPassword     = 4,
+            AuthTimeout           = 5
         }
         private ClientStatusFlag ClientStatus { get; set; }
         private IPAddress ClientIP { get; set; }
@@ -198,7 +198,7 @@ namespace NetTerminal {
                 // Wrong password
                 // The new byte[0] is used to avoid to return a null type if io._AuthReadPsw returns null
                 if (sPsw.SequenceEqual(SHA256.Create().ComputeHash(clPsw == null ? new byte[0] : clPsw)) == false) {
-                    // If returned new byte[0], the client is with the status UnknownOrDisconnected
+                    // If returned new byte[0] (Length will be 0), the client is with the status UnknownOrDisconnected
                     if (clPsw.Length > 0)
                         ClientStatus = ClientStatusFlag.AuthWrongPassword;
 
@@ -255,11 +255,11 @@ namespace NetTerminal {
             /// </summary>
             public enum StatusFlag {
                 UnknownOrDisconnected = 0,
-                Connected = 1,
-                AuthNoPassword = 2,
-                AuthPassword = 3,
-                AuthWrongPassword = 4,
-                AuthTimeout = 5
+                Connected             = 1,
+                AuthNoPassword        = 2,
+                AuthPassword          = 3,
+                AuthWrongPassword     = 4,
+                AuthTimeout           = 5
             }
             /// <summary>
             /// Retrieves the actual client status
@@ -305,7 +305,8 @@ namespace NetTerminal {
             public bool AskAuth(string sendAuthMessage) {
                 if (Status == StatusFlag.Connected || Status == StatusFlag.AuthWrongPassword || Status == StatusFlag.AuthTimeout) {
                     try { connection.ClientAuthHandlerAsync(connection.server.EncodingChar.GetBytes(sendAuthMessage)).Wait(); } catch { return false; }
-                }
+                } else if (Status == StatusFlag.AuthNoPassword)
+                    throw new _Exception.Client.AuthBuiltinNotActive("You cannot call this method because the inbuilt Auth Protocol is not enabled\r\n\r\n : > To use the inbuilt Auth Protocol initialize the server obj with a non <null> value password");
 
                 return IsAuth;
             }
@@ -316,7 +317,8 @@ namespace NetTerminal {
             public bool AskAuth(byte[] sendAuthMessage) {
                 if (Status == StatusFlag.Connected || Status == StatusFlag.AuthWrongPassword || Status == StatusFlag.AuthTimeout) {
                     try { connection.ClientAuthHandlerAsync(sendAuthMessage).Wait(); } catch { return false; }
-                }
+                } else if (Status == StatusFlag.AuthNoPassword)
+                    throw new _Exception.Client.AuthBuiltinNotActive("You cannot call this method because the inbuilt Auth Protocol is not enabled\r\n\r\n : > To use the inbuilt Auth Protocol initialize the server obj with a non <null> value password");
 
                 return IsAuth;
             }
