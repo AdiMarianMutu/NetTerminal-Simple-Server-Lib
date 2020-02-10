@@ -1,10 +1,10 @@
-namespace NetTerminal {
-    using System;
-    using System.Net;
-    using System.Net.Sockets;
-    using System.Security.Cryptography;
-    using System.Text;
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Security.Cryptography;
+using System.Text;
 
+namespace NetTerminal {
     public class Server {
         private IPAddress ip;
         private int       port;

@@ -1,7 +1,7 @@
-namespace NetTerminal {
-    using System;
+using System;
 
-    public partial class _Exception {
+namespace NetTerminal {
+    public class _Exception {
         public class Server {
             public class IP : Exception {
                 public IP(string m) : base("\r\n" + m) { }
